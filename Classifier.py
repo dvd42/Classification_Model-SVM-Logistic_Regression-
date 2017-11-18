@@ -8,11 +8,11 @@ import file_writer as fw
 def train(x_train,y_train,kernel):
 
     if rp.classifier == 1:
-        classifier = svm.SVC(C=rp.C, kernel=kernel, gamma=rp.gamma,degree=rp.degree,probability=rp.probabilities,decision_function_shape='ovr')
+        classifier = svm.SVC(C=rp.C, kernel=kernel, gamma=rp.gamma,degree=rp.degree,probability=rp.probabilities,decision_function_shape=rp.ovx)
         classifier.fit(x_train, y_train)
         
     else:
-        classifier = LogisticRegression(multi_class="ovr")
+        classifier = LogisticRegression(multi_class=rp.ovx)
         classifier.fit(x_train, y_train)
     
     return classifier

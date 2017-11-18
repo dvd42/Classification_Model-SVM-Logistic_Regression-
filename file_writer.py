@@ -19,7 +19,8 @@ def add_file_header(path):
            "C: %.2f\n"
            "Gamma: %.2f\n"
            "Degree: %d\n"
-           "Coef0: %d\n" % (rp.C,rp.gamma,rp.degree,rp.r), file=open(path + "/Results.txt", "a+"))
+           "Coef0: %d\n"
+           "Strategy: %s" % (rp.C,rp.gamma,rp.degree,rp.r,rp.ovx), file=open(path + "/Results.txt", "a+"))
 
 
 def store_score(kernel_score,path):
