@@ -16,8 +16,7 @@ from sklearn.model_selection import train_test_split
 def load_data(data):
     dataset = pd.read_csv(data)
     x = dataset.iloc[:,2:].values
-    y = dataset.iloc[:,0].values
-    #partitions = [0.5, 0.7, 0.8]
+    y = dataset.iloc[:,1].values
 
     sc = MinMaxScaler()
     x = sc.fit_transform(x)
@@ -32,7 +31,7 @@ def kfold(x,num):
 
 
 #Apply Random Split
-def split(x,y,ratio):
+def holdout(x,y,ratio):
     x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=1-ratio)
     return x_train,x_test,y_train,y_test
 

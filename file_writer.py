@@ -5,7 +5,6 @@ import os
 
 def create_dir(method, split, classifier):
 
-
     path = "Holdout " + str(split) if method == "h" else "k-fold " + str(int(split))
     path += "/SVM" if classifier == 1 else "/Logistic"
 
@@ -21,7 +20,6 @@ def add_file_header(path):
            "Gamma: %.2f\n"
            "Degree: %d\n"
            "Coef0: %d\n" % (rp.C,rp.gamma,rp.degree,rp.r), file=open(path + "/Results.txt", "a+"))
-
 
 
 def store_score(kernel_score,path):
