@@ -6,22 +6,30 @@ Created on Thu Nov  9 16:03:17 2017
 @author: diego
 """
 
-        #print "Gamma",gamma
-        #print "Kernel",kernel
-        #print "C",C
-        #print "Degree",degree
-        #print "Probability",probability
-
-
 import Classifier as c
 import Data_preprocessing as d
+import runtime_parser as rp
+import file_writer as fw
 
-num = 5
-method = "svm"
+rp.process_runtime_arguments()
+x,y = d.load_data(rp.data)
 
-x,y = d.load_data()
+num = x.shape[0] if rp.cv[1] == "n" else float(rp.cv[1])
+path = fw.create_dir(rp.cv[0],num,rp.classifier)
 
-split = d.kfold(x,num)
-# Make SVM parameters as runtime global parameters
-print c.validate(x,y,split,method)
+if rp.classifier == 1:
+    fw.add_file_header(path)
+
+if rp.cv[0] == "kf":
+    split = d.kfold(x,int(num))
+    c.kf_validate(x, y, split,path)
+
+else:
+    x_train, x_test, y_train, y_test = d.split(x,y,num)
+    c.h_validate( x_train, x_test, y_train, y_test,path)
+
+
+
+
+
 

@@ -1,13 +1,14 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn import svm
+import  runtime_parser as rp
+import file_writer as fw
 
 
-# Train logistic or svm classificator
-def train(x_train,y_train,method,C,kernel,gamma,degree,probability):
+# Train logistic or svm classifier
+def train(x_train,y_train,kernel):
 
-    if method == "svm":
-
-        classifier = svm.SVC(C=C, kernel=kernel, gamma=gamma,degree=degree,verbose=False,probability=probability)
+    if rp.classifier == 1:
+        classifier = svm.SVC(C=rp.C, kernel=kernel, gamma=rp.gamma,degree=rp.degree,probability=rp.probabilities)
         classifier.fit(x_train, y_train)
         
     else:
@@ -16,12 +17,23 @@ def train(x_train,y_train,method,C,kernel,gamma,degree,probability):
     
     return classifier
 
-# Process data and get results 
-def validate(x,y,split,method):
+#Process data and get results using holdout
+def h_validate(x_train,x_test,y_train,y_test,path):
+
+    kernels = ["rbf", "poly", "sigmoid", "linear"] if rp.classifier == 1 else ["logistic"]
+    kernel_score = {key: [] for key in kernels}
+
+    for key in kernel_score:
+        classifier = train(x_train, y_train, key)
+        kernel_score[key] = classifier.score(x_test, y_test)
+
+    fw.store_score(kernel_score,path)
+
+
+# Process data and get results using k-fold validation
+def kf_validate(x, y, split,path):
     
-    kernels = ["rbf","poly","sigmoid","linear"] if method == "svm" else ["logistic"]
-        
-       
+    kernels = ["rbf","poly","sigmoid","linear"] if rp.classifier == 1 else ["logistic"]
         
     kernel_score = {key:[] for key in kernels}
     
@@ -29,14 +41,13 @@ def validate(x,y,split,method):
          x_train, x_test = x[train_index], x[test_index]
          y_train, y_test = y[train_index], y[test_index]
          for key in kernel_score:    
-            classifier = train(x_train,y_train,method,1,key,20,3,False)
+            classifier = train(x_train,y_train,key)
             kernel_score[key].append(classifier.score(x_test,y_test))
         
     for key in kernel_score:
         kernel_score[key] = reduce(lambda x, y: x + y,kernel_score[key]) / len(kernel_score[key])
 
-
-    return kernel_score
+    fw.store_score(kernel_score, path)
 
 
 
