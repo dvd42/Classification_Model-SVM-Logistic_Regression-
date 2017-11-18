@@ -15,7 +15,7 @@ def train(x_train,y_train,kernel):
         classifier.fit(x_train, y_train)
         
     else:
-        classifier = LogisticRegression(multi_class=rp.ovx)
+        classifier = LogisticRegression(multi_class='ovr')
         classifier.fit(x_train, y_train)
     
     return classifier
@@ -28,6 +28,7 @@ def h_validate(x_train,x_test,y_train,y_test,path):
     models = []
     for key in kernel_score:
         models.append(train(x_train, y_train, key))
+        v.evaluate(models[-1].predict_proba(x_test), y_test, len(c.Counter(y_test)), path, key)
         kernel_score[key] = models[-1].score(x_test, y_test)
 
     if rp.verbose:
@@ -43,19 +44,21 @@ def kf_validate(x, y, split,path):
     kernels = ["rbf","poly","sigmoid","linear"] if rp.classifier == 1 else ["logistic"]
         
     kernel_score = {key:[] for key in kernels}
-    
+    i = 0
+
     for train_index, test_index in split:
-         x_train, x_test = x[train_index], x[test_index]
-         y_train, y_test = y[train_index], y[test_index]
-         for key in kernel_score:    
+        i +=1
+        x_train, x_test = x[train_index], x[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        for key in kernel_score:
             classifier = train(x_train,y_train,key)
+            if i == 1:
+                v.evaluate(classifier._predict_proba(x_test), y_test, len(c.Counter(y)), path,key)
             kernel_score[key].append(classifier.score(x_test,y_test))
         
     for key in kernel_score:
         kernel_score[key] = reduce(lambda x, y: x + y,kernel_score[key]) / len(kernel_score[key])
 
-
-    v.evaluate(x_train,classifier._predict_proba(x_test),y_test,len(c.Counter(y)),path)
 
     if rp.verbose:
         print kernel_score
