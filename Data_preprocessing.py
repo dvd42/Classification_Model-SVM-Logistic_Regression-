@@ -8,18 +8,20 @@ Created on Fri Nov 17 18:30:06 2017
 
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-import numpy as np
 from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
+import warnings
 
 
 def load_data(data):
     dataset = pd.read_csv(data)
     x = dataset.iloc[:,2:].values
-    y = dataset.iloc[:,1].values
+    y = dataset.iloc[:,0].values
 
-    sc = MinMaxScaler()
-    x = sc.fit_transform(x)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        sc = MinMaxScaler()
+        x = sc.fit_transform(x)
     
     return x,y
 
