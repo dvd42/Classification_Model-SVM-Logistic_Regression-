@@ -28,8 +28,8 @@ def h_metrics(x_train, x_test, y_train, y_test, path):
     models = []
     for key in kernel_score:
         models.append(train(x_train, y_train, key))
-        #v.evaluate(models[-1].predict_proba(x_test), y_test, len(c.Counter(y_test)), path, key)
-        #kernel_score[key] = models[-1].score(x_test, y_test)
+        v.evaluate(models[-1].predict_proba(x_test), y_test, len(c.Counter(y_test)), path, key)
+        kernel_score[key] = models[-1].score(x_test, y_test)
 
     if rp.classifier == 1:
         kp.plot_kernel(models, x_train, y_train,path)

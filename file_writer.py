@@ -44,6 +44,7 @@ def add_file_header(path):
 
 
 def store_score(kernel_score,path):
+
     for key in kernel_score:
         print ("%s: %.3f" % (key,kernel_score[key]) ,file=open(path + "/Results.txt", "a+"))
 
