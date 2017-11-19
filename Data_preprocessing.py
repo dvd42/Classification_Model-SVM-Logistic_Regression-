@@ -23,7 +23,7 @@ def load_data(data):
         sc = MinMaxScaler()
         x = sc.fit_transform(x)
 
-    return x,y,list(dataset)
+    return x,y,list(dataset)[2:]
 
 
 # Apply K-Fold Cross Validation Split
