@@ -74,10 +74,12 @@ def plot_kernel(models, x_train, y_train,path):
         ax.set_yticks(())
         ax.set_title(title)
 
-    plt.savefig(path + "/Kernels/" + " C " + str(rp.C) + " Gamma "  + str(rp.gamma) + " Degree "  +
-                        str(rp.degree) + " Strategy " + str(rp.ovx) + ".png",bbox_inches='tight')
     if rp.verbose:
         plt.draw()
         plt.pause(5)
+    else:
+        plt.savefig(path + "/Kernels/" + " C " + str(rp.C) + " Gamma "  + str(rp.gamma) + " Degree "  +
+                        str(rp.degree) + " Strategy " + str(rp.ovx) + ".png",bbox_inches='tight')
+
 
     plt.close()

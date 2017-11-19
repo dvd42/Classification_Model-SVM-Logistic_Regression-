@@ -40,7 +40,7 @@ def h_metrics(x_train, x_test, y_train, y_test, path):
         fw.store_score(kernel_score,path)
 
 # Process data and get results using k-fold validation
-def kf_metrics(x,y,split, path):
+def kf_metrics(x,y,split, path,num):
 
     kernels = ["rbf","poly","sigmoid","linear"] if rp.classifier == 1 else ["logistic"]
     kernel_score = {key:[] for key in kernels}
@@ -53,7 +53,7 @@ def kf_metrics(x,y,split, path):
         for key in kernel_score:
             models.append(train(x_train,y_train,key))
             kernel_score[key].append(models[-1].score(x_test,y_test))
-            if i == 1:
+            if i == 1 and num != x.shape[0]:
                 v.evaluate(models[-1].predict_proba(x_test), y_test, len(c.Counter(y)), path, key)
         if rp.classifier == 1 and i == 1:
             kp.plot_kernel(models, x_train, y_train, path)
