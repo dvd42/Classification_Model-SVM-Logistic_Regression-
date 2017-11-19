@@ -22,11 +22,11 @@ if rp.classifier == 1:
 
 if rp.cv[0] == "kf":
     split = d.kfold(x,int(num))
-    c.kf_validate(x, y, split,path)
+    c.kf_metrics(x, y, split, path)
 
 else:
     x_train, x_test, y_train, y_test = d.holdout(x,y,num)
-    c.h_validate( x_train, x_test, y_train, y_test,path)
+    c.h_metrics(x_train, x_test, y_train, y_test, path)
 
 
 

@@ -18,6 +18,9 @@ def create_dir(method, split, classifier):
         if not os.path.exists(path + "/Precision-Recall"):
             os.makedirs(path + "/Precision-Recall")
 
+        if not os.path.exists(path + "/Kernels"):
+            os.makedirs(path + "/Kernels")
+
     return path
 
 def add_file_header(path):
