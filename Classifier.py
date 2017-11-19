@@ -11,17 +11,17 @@ import kernel_plot as kp
 def train(x_train,y_train,kernel):
 
     if rp.classifier == 1:
-        classifier = svm.SVC(C=rp.C, kernel=kernel, gamma=rp.gamma,degree=rp.degree,probability=True,decision_function_shape=rp.ovx)
+        classifier = svm.SVC(C=rp.C, kernel=kernel, gamma=rp.gamma,degree=rp.degree,probability=True,decision_function_shape=rp.ovx,class_weight="balanced")
         classifier.fit(x_train, y_train)
         
     else:
-        classifier = LogisticRegression(multi_class='ovr')
+        classifier = LogisticRegression(multi_class='ovr',class_weight="balanced")
         classifier.fit(x_train, y_train)
     
     return classifier
 
 #Process data and get results using holdout
-def h_metrics(x_train, x_test, y_train, y_test, path):
+def h_metrics(x_train, x_test, y_train, y_test, path,tags):
 
     kernels = ["rbf", "poly", "sigmoid", "linear"] if rp.classifier == 1 else ["logistic"]
     kernel_score = {key: [] for key in kernels}
@@ -32,7 +32,7 @@ def h_metrics(x_train, x_test, y_train, y_test, path):
         kernel_score[key] = models[-1].score(x_test, y_test)
 
     if rp.classifier == 1:
-        kp.plot_kernel(models, x_train, y_train,path)
+        kp.plot_kernel(models, x_train, y_train,path,tags)
 
     if rp.verbose:
         print kernel_score
@@ -40,7 +40,7 @@ def h_metrics(x_train, x_test, y_train, y_test, path):
         fw.store_score(kernel_score,path)
 
 # Process data and get results using k-fold validation
-def kf_metrics(x,y,split, path,num):
+def kf_metrics(x,y,split, path,num,tags):
 
     kernels = ["rbf","poly","sigmoid","linear"] if rp.classifier == 1 else ["logistic"]
     kernel_score = {key:[] for key in kernels}
@@ -56,7 +56,7 @@ def kf_metrics(x,y,split, path,num):
             if i == 1 and num != x.shape[0]:
                 v.evaluate(models[-1].predict_proba(x_test), y_test, len(c.Counter(y)), path, key)
         if rp.classifier == 1 and i == 1:
-            kp.plot_kernel(models, x_train, y_train, path)
+            kp.plot_kernel(models, x_train, y_train, path,tags)
 
     for key in kernel_score:
         kernel_score[key] = reduce(lambda x, y: x + y, kernel_score[key]) / len(kernel_score[key])

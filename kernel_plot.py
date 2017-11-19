@@ -2,6 +2,7 @@ from sklearn import svm, datasets
 import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.decomposition import PCA
+import pandas as pd
 
 import runtime_parser as rp
 
@@ -42,12 +43,13 @@ def plot_contours(ax, clf, xx, yy, **params):
     out = ax.contourf(xx, yy, Z, **params)
     return out
 
-def plot_kernel(models, x_train, y_train,path):
+def plot_kernel(models, x_train, y_train, path,tags):
 
     pca = PCA(n_components=2)
-    x_train = pca.fit_transform(x_train)
+    pca.fit(x_train)
+    x_new = pca.transform(x_train)
 
-    trained_models = (clf.fit(x_train, y_train) for clf in models)
+    trained_models = (clf.fit(x_new, y_train) for clf in models)
 
     # title for the plots
     titles = ('Rbf kernel (gamma %.2f)' %rp.gamma,
@@ -59,7 +61,7 @@ def plot_kernel(models, x_train, y_train,path):
     fig, sub = plt.subplots(2, 2)
     plt.subplots_adjust(wspace=0.4, hspace=0.4)
 
-    X0, X1 = x_train[:, 0], x_train[:, 1]
+    X0, X1 = x_new[:, 0], x_new[:, 1]
     xx, yy = make_meshgrid(X0, X1)
 
     for clf, title, ax in zip(trained_models, titles, sub.flatten()):
@@ -68,8 +70,8 @@ def plot_kernel(models, x_train, y_train,path):
         ax.scatter(X0, X1, c=y_train, cmap=plt.cm.coolwarm, s=20, edgecolors='k')
         ax.set_xlim(xx.min(), xx.max())
         ax.set_ylim(yy.min(), yy.max())
-        #ax.set_xlabel()
-        #ax.set_ylabel()
+        ax.set_xlabel(tags[np.argmax(pca.components_[0])])
+        ax.set_ylabel(tags[np.argmax(pca.components_[1])])
         ax.set_xticks(())
         ax.set_yticks(())
         ax.set_title(title)

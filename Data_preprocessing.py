@@ -18,13 +18,12 @@ def load_data(data):
     x = dataset.iloc[:,2:].values
     y = dataset.iloc[:,0].values
 
-
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         sc = MinMaxScaler()
         x = sc.fit_transform(x)
 
-    return x,y
+    return x,y,list(dataset)
 
 
 # Apply K-Fold Cross Validation Split
