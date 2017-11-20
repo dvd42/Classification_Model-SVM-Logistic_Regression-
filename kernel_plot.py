@@ -2,8 +2,8 @@ from sklearn import svm, datasets
 import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.decomposition import PCA
-import pandas as pd
 
+import Data_preprocessing as dp
 import runtime_parser as rp
 
 def make_meshgrid(x, y, h=.02):
@@ -44,6 +44,11 @@ def plot_contours(ax, clf, xx, yy, **params):
     return out
 
 def plot_kernel(models, x_train, y_train, path,tags):
+
+    #x,y,_ = dp.load_data(rp.data,False)
+
+    #x_train, x_test, y_train, y_test = dp.holdout(x,y,0.8)
+
 
     pca = PCA(n_components=2)
     pca.fit(x_train)

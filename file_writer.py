@@ -46,7 +46,19 @@ def add_file_header(path):
 def store_score(kernel_score,path):
 
     for key in kernel_score:
-        print ("%s: %.3f" % (key,kernel_score[key]) ,file=open(path + "/Results.txt", "a+"))
+        print ("%s: %.2f" % (key,kernel_score[key]) ,file=open(path + "/Results.txt", "a+"))
 
     print ("\n",file=open(path + "/Results.txt", "a+"))
 
+
+def store_fscore(key,micro,macro,path):
+
+    if rp.verbose:
+        print ("%s: F1_score macro: %.2f" % (key,macro))
+        print ("%s: F1_score micro: %.2f"%(key,micro))
+        #print ("%s: F1_score weighted: %.2f") %(key,weighted)
+
+    else:
+        print("%s: F1_score macro: %.2f" % (key, macro),file=open(path + "/Results.txt", "a+"))
+        print("%s: F1_score micro: %.2f" % (key, micro),file=open(path + "/Results.txt", "a+"))
+        #print("%s: F1_score weighted: %.2f" % (key, weighted),file=open(path + "/Results.txt", "a+"))

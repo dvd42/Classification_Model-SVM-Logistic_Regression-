@@ -13,17 +13,21 @@ from sklearn.model_selection import train_test_split
 import warnings
 
 
-def load_data(data):
+def load_data(data,n_clases,scale=True):
     dataset = pd.read_csv(data)
     x = dataset.iloc[:,2:].values
-    y = dataset.iloc[:,0].values
 
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        sc = MinMaxScaler()
-        x = sc.fit_transform(x)
+    y = dataset.iloc[:, 0].values if n_clases == 2 else dataset.iloc[:,1].values
 
-    return x,y,list(dataset)[2:]
+
+
+    if scale:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            sc = MinMaxScaler()
+            x = sc.fit_transform(x)
+
+    return x,y-1,list(dataset)[2:]
 
 
 # Apply K-Fold Cross Validation Split

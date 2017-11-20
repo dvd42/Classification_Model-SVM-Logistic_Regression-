@@ -1,0 +1,130 @@
+Running SVM model with:
+C: 1.00
+Gamma: 1.00
+Degree: 2
+Coef0: 1
+Strategy: ovr
+Running SVM model with:
+C: 1.00
+Gamma: 1.00
+Degree: 2
+Coef0: 1
+Strategy: ovr
+rbf: F1_score macro: 0.13
+rbf: F1_score micro: 0.16
+rbf: F1_score weighted: 0.08
+linear: F1_score macro: 0.10
+linear: F1_score micro: 0.18
+linear: F1_score weighted: 0.06
+poly: F1_score macro: 0.11
+poly: F1_score micro: 0.19
+poly: F1_score weighted: 0.06
+sigmoid: F1_score macro: 0.10
+sigmoid: F1_score micro: 0.18
+sigmoid: F1_score weighted: 0.06
+rbf: 0.16
+linear: 0.18
+poly: 0.19
+sigmoid: 0.18
+
+
+Running SVM model with:
+C: 10.00
+Gamma: 20.00
+Degree: 2
+Coef0: 1
+Strategy: ovo
+rbf: F1_score macro: 0.32
+rbf: F1_score micro: 0.35
+linear: F1_score macro: 0.33
+linear: F1_score micro: 0.33
+poly: F1_score macro: 0.35
+poly: F1_score micro: 0.38
+sigmoid: F1_score macro: 0.28
+sigmoid: F1_score micro: 0.36
+rbf: 0.35
+linear: 0.33
+poly: 0.38
+sigmoid: 0.36
+
+
+Running SVM model with:
+C: 10.00
+Gamma: 20.00
+Degree: 2
+Coef0: 1
+Strategy: ovr
+rbf: F1_score macro: 0.31
+rbf: F1_score micro: 0.45
+linear: F1_score macro: 0.22
+linear: F1_score micro: 0.24
+poly: F1_score macro: 0.28
+poly: F1_score micro: 0.31
+sigmoid: F1_score macro: 0.21
+sigmoid: F1_score micro: 0.22
+rbf: 0.45
+linear: 0.24
+poly: 0.31
+sigmoid: 0.22
+
+
+Running SVM model with:
+C: 1.00
+Gamma: 50.00
+Degree: 2
+Coef0: 1
+Strategy: ovo
+rbf: F1_score macro: 0.30
+rbf: F1_score micro: 0.41
+linear: F1_score macro: 0.10
+linear: F1_score micro: 0.16
+poly: F1_score macro: 0.23
+poly: F1_score micro: 0.24
+sigmoid: F1_score macro: 0.17
+sigmoid: F1_score micro: 0.16
+rbf: 0.41
+linear: 0.16
+poly: 0.24
+sigmoid: 0.16
+
+
+Running SVM model with:
+C: 1.00
+Gamma: 1.00
+Degree: 2
+Coef0: 1
+Strategy: ovr
+rbf: F1_score macro: 0.16
+rbf: F1_score micro: 0.24
+linear: F1_score macro: 0.11
+linear: F1_score micro: 0.20
+poly: F1_score macro: 0.11
+poly: F1_score micro: 0.20
+sigmoid: F1_score macro: 0.11
+sigmoid: F1_score micro: 0.20
+rbf: 0.24
+linear: 0.20
+poly: 0.20
+sigmoid: 0.20
+
+
+Running SVM model with:
+C: 1.00
+Gamma: 1.00
+Degree: 2
+Coef0: 1
+Strategy: ovo
+rbf: F1_score macro: 0.15
+rbf: F1_score micro: 0.23
+linear: F1_score macro: 0.13
+linear: F1_score micro: 0.22
+poly: F1_score macro: 0.14
+poly: F1_score micro: 0.23
+sigmoid: F1_score macro: 0.12
+sigmoid: F1_score micro: 0.20
+rbf: 0.23
+linear: 0.22
+poly: 0.23
+sigmoid: 0.20
+
+

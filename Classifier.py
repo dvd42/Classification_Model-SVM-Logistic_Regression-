@@ -11,7 +11,8 @@ import kernel_plot as kp
 def train(x_train,y_train,kernel):
 
     if rp.classifier == 1:
-        classifier = svm.SVC(C=rp.C, kernel=kernel, gamma=rp.gamma,degree=rp.degree,probability=True,decision_function_shape=rp.ovx,class_weight="balanced")
+        classifier = svm.SVC(C=rp.C, kernel=kernel, gamma=rp.gamma,degree=rp.degree,probability=True,
+                             decision_function_shape=rp.ovx,)
         classifier.fit(x_train, y_train)
         
     else:
@@ -28,7 +29,7 @@ def h_metrics(x_train, x_test, y_train, y_test, path,tags):
     models = []
     for key in kernel_score:
         models.append(train(x_train, y_train, key))
-        v.evaluate(models[-1].predict_proba(x_test), y_test, len(c.Counter(y_test)), path, key)
+        v.evaluate(models[-1],x_test ,y_test, len(c.Counter(y_test)), path, key)
         kernel_score[key] = models[-1].score(x_test, y_test)
 
     if rp.classifier == 1:
@@ -54,7 +55,7 @@ def kf_metrics(x,y,split, path,num,tags):
             models.append(train(x_train,y_train,key))
             kernel_score[key].append(models[-1].score(x_test,y_test))
             if i == 1 and num != x.shape[0]:
-                v.evaluate(models[-1].predict_proba(x_test), y_test, len(c.Counter(y)), path, key)
+                v.evaluate(models[-1],x_test,y_test, len(c.Counter(y)), path, key)
         if rp.classifier == 1 and i == 1:
             kp.plot_kernel(models, x_train, y_train, path,tags)
 
