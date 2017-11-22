@@ -12,7 +12,7 @@ import runtime_parser as rp
 import file_writer as fw
 
 rp.process_runtime_arguments()
-x,y,tags = d.load_data(rp.data)
+x,y,tags = d.load_data(rp.data,rp.n_clases)
 
 num = x.shape[0] if rp.cv[1] == "n" else float(rp.cv[1])
 path = fw.create_dir(rp.cv[0],num,rp.classifier)
