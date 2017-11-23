@@ -12,7 +12,7 @@ def train(x_train,y_train,kernel):
 
     if rp.classifier == 1:
         classifier = svm.SVC(C=rp.C, kernel=kernel, gamma=rp.gamma,degree=rp.degree,probability=True,
-                             decision_function_shape=rp.ovx,)
+                             decision_function_shape=rp.ovx,class_weight="balanced")
         classifier.fit(x_train, y_train)
         
     else:
@@ -37,6 +37,7 @@ def h_metrics(x_train, x_test, y_train, y_test, path,tags):
 
     if rp.verbose:
         print kernel_score
+
     else:
         fw.store_score(kernel_score,path)
 

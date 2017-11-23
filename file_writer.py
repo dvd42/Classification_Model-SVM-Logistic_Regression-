@@ -2,7 +2,7 @@ from __future__ import print_function
 import runtime_parser as rp
 import os
 
-
+# Create directories to store results
 def create_dir(method, split, classifier):
 
     path = "Holdout " + str(split) if method == "h" else "k-fold " + str(int(split))
@@ -42,7 +42,7 @@ def add_file_header(path):
     print (string)
 
 
-
+# Store accuracy score in files
 def store_score(kernel_score,path):
 
     for key in kernel_score:
@@ -51,14 +51,19 @@ def store_score(kernel_score,path):
     print ("\n",file=open(path + "/Results.txt", "a+"))
 
 
-def store_fscore(key,micro,macro,path):
+# Store F1-score in files or print them if verbose is False
+def store_fscore(key,path,micro=None,macro=None,binary = None):
 
     if rp.verbose:
-        print ("%s: F1_score macro: %.2f" % (key,macro))
-        print ("%s: F1_score micro: %.2f"%(key,micro))
-        #print ("%s: F1_score weighted: %.2f") %(key,weighted)
+        if micro != None and macro != None:
+            print ("%s: F1_score macro: %.2f" % (key,macro))
+            print ("%s: F1_score micro: %.2f"%(key,micro))
+        else:
+            print ("%s: F1_score: %.2f" % (key,binary))
 
     else:
-        print("%s: F1_score macro: %.2f" % (key, macro),file=open(path + "/Results.txt", "a+"))
-        print("%s: F1_score micro: %.2f" % (key, micro),file=open(path + "/Results.txt", "a+"))
-        #print("%s: F1_score weighted: %.2f" % (key, weighted),file=open(path + "/Results.txt", "a+"))
+        if micro != None and macro != None:
+            print("%s: F1_score macro: %.2f" % (key, macro),file=open(path + "/Results.txt", "a+"))
+            print("%s: F1_score micro: %.2f" % (key, micro),file=open(path + "/Results.txt", "a+"))
+        else:
+            print("%s: F1_score weighted: %.2f" % (key, binary),file=open(path + "/Results.txt", "a+"))
