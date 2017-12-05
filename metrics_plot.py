@@ -23,7 +23,7 @@ def evaluate(model, x_test, y_test, nClases, path, key):
                  label='Kernel:{2} Precision-Recall curve of class{0} (area = {1:0.2f})' ''.format(i, average_precision[i],key))
         plt.xlabel('Recall')
         plt.ylabel('Precision')
-        plt.legend(loc="upper right")
+        plt.legend(loc='lower left', bbox_to_anchor=(0,1.02,1,0.2))
 
         if rp.verbose:
             plt.draw()
@@ -63,13 +63,14 @@ def evaluate(model, x_test, y_test, nClases, path, key):
         plt.plot(fpr[i], tpr[i], label='Kernel:{2} ROC curve of class {0} (area = {1:0.2f})' ''.format(i, roc_auc[i],key))
         plt.xlabel("False Positive Rate")
         plt.ylabel("True Positive Rate")
-        plt.legend(loc="upper right")
+        plt.legend(loc='lower left', bbox_to_anchor=(0,1.02,1,0.2))
 
         if rp.verbose:
             plt.draw()
             plt.pause(1)
 
         else:
-            plt.savefig(path + "/ROC/" + key  + " C " + str(rp.C) + " Gamma "  + str(rp.gamma) + " Degree "  + str(rp.degree) + " Strategy " + str(rp.ovx) + ".png",bbox_inches='tight')
+            plt.savefig(path + "/ROC/" + key  + " C " + str(rp.C) + " Gamma "  + str(rp.gamma) +
+                        " Degree "  + str(rp.degree) + " Strategy " + str(rp.ovx) + ".png",bbox_inches='tight')
 
     plt.close()
